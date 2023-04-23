@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Predictor</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #F7F7F7;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            margin-top: 90px;
+        }
+
+        .header-container {
+            background-color: #4C4C4C;
+            color: #ffffff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .header-title {
+            font-size: 32px;
+            margin: 0;
+        }
+
+        .header-text {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        #weather-carousel {
+            width: 100%;
+            height: 300px;
+        }
+
+        .carousel-item img {
+            height: 300px;
+            object-fit: cover;
+        }
+
+        p {
+            margin-left: 50px;
+            margin-bottom: 50px;
+            font-size: 18px;
+            line-height: 1.5;
+            color: #4C4C4C;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-left: 50px;
+            color: #4C4C4C;
+        }
+    </style>
+    <style>
+        .card {
+            background-color: #f8f9fa;
+            border: none;
+            box-shadow: 0px 3px 3px #e0e0e0;
+        }
+
+        .card-title {
+            font-weight: bold;
+            font-size: 24px;
+            color: #007bff;
+        }
+
+        .card-text {
+            font-size: 18px;
+            color: #333333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-container">
+        <div class="container">
+            <h2 class="header-title text-uppercase">Capstone Project</h2>
+            <img src="\static\images\logo.png" alt="logo" height="50">
+            <h6 class="header-text text-uppercase">Pranav Surendran</h6>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Weather Predictor</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5" style="background-color: #f7f7f7">
+        <h2 class="text-center mb-4" style="font-family: Arial, sans-serif;">Weather Predictions Based on Climatic
+            Parameters</h2>
+        <div id="weather-carousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="/static/images/sunny.jpg" class="d-block w-100" alt="Sunny">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5 style="font-family: Arial, sans-serif;">Sunny</h5>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="/static/images/cloudy.jpg" class="d-block w-100" alt="Cloudy">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5 style="font-family: Arial, sans-serif;">Cloudy</h5>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="/static/images/rainy.jpg" class="d-block w-100" alt="Rainy">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5 style="font-family: Arial, sans-serif;">Rainy</h5>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="/static/images/thunderstorm.jpg" class="d-block w-100" alt="Thunderstorm">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5 style="font-family: Arial, sans-serif;">Thunderstorm</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="intro">
+        <h1>Welcome to our Weather Predictor website</h1>
+        <p>Where we provide accurate weather predictions based on various climatic conditions.
+            Our platform aims to assist researchers and scientists in their study of weather patterns
+            and trends by providing reliable predictions. Through the use of advanced technology and
+            analysis of historical weather data, our platform can generate accurate predictions for
+            various weather conditions such as sunny, cloudy, rainy, and thunderstorms.
+            Our easy-to-use form allows users to input specific climatic conditions, and the platform
+            generates predictions based on that data. With our reliable and precise weather predictions,
+            researchers and scientists can make informed decisions and plan accordingly.
+            Join us in our mission to predict the weather accurately and stay ahead of any unexpected
+            weather conditions.
+        </p>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>Climatic Conditions</h4>
+                <form action="{{ url_for('predict') }}" method="POST">
+                    <div class="form-group">
+                        <label for="temp-max">Maximum Temperature (°C)</label>
+                        <input type="number" class="form-control" id="temp-max" name="TMAX" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="temp-min">Minimum Temperature (°C)</label>
+                        <input type="number" class="form-control" id="temp-min" name="TMIN" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="wind-max">Maximum Wind Speed (km/h)</label>
+                        <input type="number" class="form-control" id="wind-max" name="WIND_MAX(kph)" step="0.01"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="wind-min">Minimum Wind Speed (km/h)</label>
+                        <input type="number" class="form-control" id="wind-min" name="WIND_MIN(kph)" step="0.01"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="precip">Precipitation (inches)</label>
+                        <input type="number" class="form-control" id="precip" name="PRCP" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="humidity">Humidity in Percentage</label>
+                        <input type="number" class="form-control" id="humidity" name="HUMIDITY" step="0.01" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Predict Weather</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h4>Predicted Weather</h4>
+                {% if message %}
+                <div class="card my-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ message }}</h5>
+                        <p class="card-text">{{ thanking }}</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
